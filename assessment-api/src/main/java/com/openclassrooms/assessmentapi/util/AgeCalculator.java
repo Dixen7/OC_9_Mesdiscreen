@@ -14,10 +14,10 @@ import java.time.Period;
 public class AgeCalculator {
 
     /**
-     * Gets age from birth date.
+     * Gets age from birthdate.
      *
-     * @param birthDate the birth date
-     * @return the age from birth date
+     * @param birthDate the birthdate
+     * @return the age from birthdate
      */
     public int getAgeFromBirthDate(LocalDate birthDate) {
 

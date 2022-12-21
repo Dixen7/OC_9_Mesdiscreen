@@ -1,10 +1,8 @@
 package com.openclassrooms.assessmentapi.service;
 
-import com.openclassrooms.assessmentapi.dto.PatientDTO;
 import com.openclassrooms.assessmentapi.model.Assessment;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 /**
  * The interface Assessment service.
@@ -21,11 +19,4 @@ public interface AssessmentService {
      */
     Assessment getPatientAssessmentById(Integer patientId) throws Exception;
 
-    /**
-     * Gets all patient by family name.
-     *
-     * @param familyName the family name
-     * @return the all patient by family name
-     */
-    List<PatientDTO> getAllPatientByFamilyName(String familyName);
 }

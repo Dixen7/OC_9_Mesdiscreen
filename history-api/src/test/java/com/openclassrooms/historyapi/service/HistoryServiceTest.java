@@ -70,7 +70,6 @@ class HistoryServiceTest {
 
         assertThat(note.getNote()).contains("note1");
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
 
     }
@@ -99,7 +98,6 @@ class HistoryServiceTest {
 
         assertEquals(2, historyRepository.findAll().size());
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
         historyService.deleteById("2");
     }
@@ -117,7 +115,6 @@ class HistoryServiceTest {
 
         assertThrows(NoteAlreadyExistsException.class, () -> historyService.create(noteDTO1));
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
 
     }
@@ -137,7 +134,6 @@ class HistoryServiceTest {
 
         assertEquals("note updated", historyRepository.findNoteById("1").getNote());
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
 
     }
@@ -165,7 +161,6 @@ class HistoryServiceTest {
 
         assertEquals(1, historyRepository.findAll().size());
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
 
         assertEquals(0, historyRepository.findAll().size());
@@ -198,7 +193,6 @@ class HistoryServiceTest {
 
         assertEquals(2,noteList.size());
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
         historyService.deleteById("3");
 
@@ -219,7 +213,6 @@ class HistoryServiceTest {
 
         assertEquals(1,patientId);
 
-        //Mongo DB doesn't support transactional action and rollback, then need to do it by hand
         historyService.deleteById("1");
 
     }

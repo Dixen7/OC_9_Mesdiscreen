@@ -49,32 +49,4 @@ public class AssessmentController {
         return dtoConverter.AssessmentToAssessmentDTO(assessment);
     }
 
-    /**
-     * Gets family assessment list.
-     *
-     * @param familyName the family name
-     * @return the family assessment list
-     */
-    @GetMapping("/familyName")
-    @ApiOperation(value = "This URI returns a list of assessment given a family name, matching each member of the family")
-    public List<AssessmentDTO> getFamilyAssessmentList(@ApiParam(
-            value = "the family name",
-            example = "Ferguson"
-    )@RequestParam(value="value") String familyName){
-        log.info("HTTP GET request received at /assessment/familyName?value="+familyName);
-
-        List<AssessmentDTO> assessmentDTOList = new ArrayList<>();
-        List<PatientDTO> patientDTOList = assessmentService.getAllPatientByFamilyName(familyName);
-
-        patientDTOList.forEach(patientDTO -> {
-            try {
-                assessmentDTOList.add(dtoConverter.AssessmentToAssessmentDTO(assessmentService.getPatientAssessmentById(patientDTO.getId())));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        return assessmentDTOList;
-    }
-
 }

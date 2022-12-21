@@ -64,37 +64,4 @@ class AssessmentControllerTest {
 
     }
 
-
-    /**
-     * Test get family assessment list.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    void test_getFamilyAssessmentList() throws Exception {
-
-        PatientDTO patientDTO = new PatientDTO(1,"ferguson","Lucas", LocalDate.now(),"M","address","0123456789");
-        PatientDTO patientDTO2 = new PatientDTO(2,"ferguson","Dude", LocalDate.now(),"M","address","0123456789");
-        List<PatientDTO> patientDTOList = Arrays.asList(patientDTO,patientDTO2);
-        Assessment assessment = new Assessment(patientDTO,25,"test");
-        Assessment assessment2 = new Assessment(patientDTO2,25,"test");
-        AssessmentDTO assessmentDTO = new AssessmentDTO(patientDTO,25,"test");
-        AssessmentDTO assessment2DTO = new AssessmentDTO(patientDTO2,25,"test");
-
-
-        when(assessmentService.getAllPatientByFamilyName("ferguson")).thenReturn(patientDTOList);
-        when(assessmentService.getPatientAssessmentById(1)).thenReturn(assessment);
-        when(assessmentService.getPatientAssessmentById(2)).thenReturn(assessment2);
-        when(dtoConverter.AssessmentToAssessmentDTO(assessment)).thenReturn(assessmentDTO);
-        when(dtoConverter.AssessmentToAssessmentDTO(assessment2)).thenReturn(assessment2DTO);
-
-        MvcResult mvcResult = mockMvc.perform(get("/assessment/familyName?value=ferguson"))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String content = mvcResult.getResponse().getContentAsString();
-        assertThat(content).contains("Dude").contains("Lucas");
-
-    }
-
 }

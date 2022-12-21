@@ -56,34 +56,4 @@ public class AssessmentController {
         return "assessment/individual";
     }
 
-    /**
-     * Gets family assessment.
-     *
-     * @param familyName the family name
-     * @param model      the model
-     * @return the family assessment
-     */
-    @ApiOperation(value = "This URI returns a list of assessment given a family name")
-    @GetMapping({"/familyName"})
-    public String getFamilyAssessment(@ApiParam(
-            value = "the family name",
-            example = "Ferguson"
-    )@RequestParam(value="value") String familyName, Model model){
-        log.info("HTTP GET request received at /assessment/familyName?value="+familyName);
-
-        List<AssessmentDTO> assessmentDTOList = null;
-
-        try {
-            assessmentDTOList = assessmentProxyFeign.getFamilyAssessment(familyName);
-        } catch (Exception e) {
-            log.error("" + e.getMessage());
-            model.addAttribute("errorMsg", e.toString());
-            return "error/error";
-        }
-
-        model.addAttribute("assessmentList",assessmentDTOList);
-
-        return "assessment/family";
-    }
-
 }

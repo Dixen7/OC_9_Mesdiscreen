@@ -68,20 +68,6 @@ class AssessmentServiceTest {
     }
 
     /**
-     * Test get all patient by family name.
-     */
-    @Test
-    void test_getAllPatientByFamilyName(){
-        PatientDTO patientDTO = new PatientDTO(1,"Test","test", LocalDate.now(),"M","address","0123456789");
-        List<PatientDTO> patientDTOList = Arrays.asList(patientDTO);
-
-        when(patientProxyFeign.getAllByLastName("Test")).thenReturn(patientDTOList);
-
-        assertEquals(1,assessmentService.getAllPatientByFamilyName("Test").size());
-
-    }
-
-    /**
      * Test get patient assessment by id with height trigger.
      *
      * @throws Exception the exception

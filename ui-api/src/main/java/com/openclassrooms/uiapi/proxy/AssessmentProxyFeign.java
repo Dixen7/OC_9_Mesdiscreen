@@ -23,13 +23,4 @@ public interface AssessmentProxyFeign {
     @GetMapping("/{id}")
     AssessmentDTO getPatientAssessment(@PathVariable("id") Integer patientId);
 
-    /**
-     * Gets family assessment.
-     *
-     * @param familyName the family name
-     * @return the family assessment
-     */
-    @GetMapping("/familyName")
-    List<AssessmentDTO> getFamilyAssessment(@RequestParam(value="value") String familyName);
-
 }

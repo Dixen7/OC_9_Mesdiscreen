@@ -3,21 +3,21 @@ services:
   ###########################
   #          MYSQL
   ###########################
-  mysql:
-    image: mysql
-    container_name: mysqldb
+  mysql-docker:
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: mediscreen
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: 112928Paco!
       MYSQL_PASSWORD: 112928Paco!
     ports:
-      - 3307:3306
+      - "3307:3306"
     volumes:
       - ./mediscreen_mysql:/var/lib/mysql
     networks:
       - web-server
     restart: always
+
   ###########################
   #         MONGO
   ###########################
@@ -38,7 +38,6 @@ services:
     environment:
       - PROXY_PATIENT=patient-api:8081/patient
       - PROXY_HISTORY=history-api:8082/history
-      - PROXY_ASSESSMENT=assessment-api:8083/assessment
     build:
       context: ./ui-api
     networks:
@@ -63,12 +62,11 @@ services:
       - "8081:8081"
     container_name: patient-api
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mediscreen?serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=112928Paco!
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-docker:3306/mediscreen?serverTimezone=UTC
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=112928Paco!
     depends_on:
-      - mysql
+      - mysql-docker
   ###########################
   #       HISTORY API
   ###########################
@@ -86,8 +84,21 @@ services:
   ###########################
   #     ASSESSMENT API
   ###########################
-
-
+  assessment-api:
+    environment:
+      - PROXY_PATIENT=patient-api:8081/patient
+      - PROXY_HISTORY=history-api:8082/history
+    build: assessment-api
+    image: assessment-api-1.0.0.jar
+    networks:
+      - web-server
+    restart: always
+    ports:
+      - "8083:8083"
+    container_name: assessment-api
+    depends_on:
+      - history-api
+      - patient-api
 ###########################
 #        NETWORK
 ###########################
