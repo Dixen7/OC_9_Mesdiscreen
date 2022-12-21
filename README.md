@@ -35,25 +35,19 @@ Mediscreen use 4 different micro-services :
 
 ### Installation
 
-1. First, create a new directory, and go into it.
-
-```bash
-cd /path/to/directory/yourProjectName
-```
-
-2. Clone the project using:
+1. Clone the project using:
 
 ```bash
 git clone https://github.com/Dixen7/OC_9_Mesdiscreen.git
 ```
 
-3. Use the following command to run the app:
+2. Use the following command to run the app:
 
 ```bash
  docker-compose up -d --build 
 ```
 
-4. For the first time, execute the following CURL command to fill-in the mongodb database with few notes (find those here "./resources/curlAddNote.txt").
+3.  For the first time, execute the following CURL command to fill-in the mongodb database with few notes (find those here "./resources/curlAddNote.txt").
 
 ```
 curl -X POST "http://localhost:8082/history/validate" -H  "Content-Type: application/json" -d "{  \"note\": \"Patient: TestNone Practitioner's notes/recommendations: Patient states that they are 'feeling terrific' Weight at or below recommended level\",  \"patientId\": 1}"
