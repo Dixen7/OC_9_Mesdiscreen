@@ -1,23 +1,23 @@
-version: "3.8"
+version: '3.6'
 services:
   ###########################
   #          MYSQL
   ###########################
-  mysql-docker:
-    image: mysql:5.7
+  mysql:
+    image: mysql
+    container_name: mysqldb
     environment:
-      MYSQL_DATABASE: mediscreen
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: 112928Paco!
-      MYSQL_PASSWORD: 112928Paco!
+      MYSQL_DATABASE: mediscreen_db
+      MYSQL_USER: rootuser
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_PASSWORD: rootroot
     ports:
-      - "3307:3306"
+      - 3307:3306
     volumes:
       - ./mediscreen_mysql:/var/lib/mysql
     networks:
       - web-server
     restart: always
-
   ###########################
   #         MONGO
   ###########################
@@ -38,6 +38,7 @@ services:
     environment:
       - PROXY_PATIENT=patient-api:8081/patient
       - PROXY_HISTORY=history-api:8082/history
+      - PROXY_ASSESSMENT=assessment-api:8083/assessment
     build:
       context: ./ui-api
     networks:
@@ -48,6 +49,7 @@ services:
     container_name: ui-api
     depends_on:
       - patient-api
+      - assessment-api
       - history-api
   ###########################
   #       PATIENT API
@@ -62,11 +64,12 @@ services:
       - "8081:8081"
     container_name: patient-api
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-docker:3306/mediscreen?serverTimezone=UTC
-#      - SPRING_DATASOURCE_USERNAME=root
-#      - SPRING_DATASOURCE_PASSWORD=112928Paco!
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mediscreen_db?serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=rootuser
+      - SPRING_DATASOURCE_PASSWORD=rootroot
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
     depends_on:
-      - mysql-docker
+      - mysql
   ###########################
   #       HISTORY API
   ###########################
