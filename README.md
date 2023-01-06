@@ -16,7 +16,7 @@ Mediscreen is a springBoot application using a multi-service architecture. This 
 * [SpringBoot 2.5.6](https://spring.io/projects/spring-boot)
 * [Java 11](https://www.java.com/fr/)
 * [Gradle](https://gradle.org/)
-* [Docker](https://www.docker.com/)
+* [Docker & DockerCompose](https://www.docker.com/)
 * [MySql](https://www.mysql.com/fr/)
 * [MongoDB](https://www.mongodb.com/)
 * [Thymeleaf](https://www.thymeleaf.org/)

@@ -6,6 +6,7 @@ import com.openclassrooms.patientapi.exception.PatientNotFoundException;
 import com.openclassrooms.patientapi.model.Patient;
 import com.openclassrooms.patientapi.util.DTOConverter;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,6 +55,11 @@ public class PatientServiceTest {
         patient1 = new Patient();
         patient2 = new Patient();
         patientList = Arrays.asList(patient1,patient2);
+    }
+
+    @BeforeEach
+    public void setDb() {
+        patientRepository.deleteAll();
     }
 
     /**

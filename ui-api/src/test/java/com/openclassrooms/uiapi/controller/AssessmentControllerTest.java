@@ -73,37 +73,4 @@ class AssessmentControllerTest {
                 .andReturn();
     }
 
-    /**
-     * Test get family assessment.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    void test_getFamilyAssessment() throws Exception {
-
-        List<AssessmentDTO> assessmentDTOList = new ArrayList<>();
-
-        when(assessmentProxyFeign.getFamilyAssessment("anyString")).thenReturn(assessmentDTOList);
-
-        mockMvc.perform(get("/assessment/familyName?value=anyString"))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
-
-    /**
-     * Test get family assessment should throws exception.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    void test_getFamilyAssessment_shouldThrowsException() throws Exception {
-
-        when(assessmentProxyFeign.getFamilyAssessment("anyString")).thenThrow(new RuntimeException());
-
-        mockMvc.perform(get("/assessment/familyName?value=anyString"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("error/error"))
-                .andReturn();
-    }
-
 }

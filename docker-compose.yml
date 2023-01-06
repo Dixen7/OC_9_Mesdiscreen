@@ -7,14 +7,14 @@ services:
     image: mysql
     container_name: mysqldb
     environment:
-      MYSQL_DATABASE: mediscreen_db
+      MYSQL_DATABASE: mediscreen
       MYSQL_USER: rootuser
-      MYSQL_ROOT_PASSWORD: rootroot
-      MYSQL_PASSWORD: rootroot
+      MYSQL_ROOT_PASSWORD: rootroot1!
+      MYSQL_PASSWORD: rootroot1!
     ports:
-      - 3307:3306
+      - 3306:3306
     volumes:
-      - ./mediscreen_mysql:/var/lib/mysql
+      - mediscreen_mysql:/var/lib/mysql
     networks:
       - web-server
     restart: always
@@ -25,7 +25,7 @@ services:
     image: mongo
     container_name: mongodb
     ports:
-      - 27018:27017
+      - 27017:27017
     volumes:
       - mediscreen_mongo:/data/db
     networks:
@@ -64,9 +64,9 @@ services:
       - "8081:8081"
     container_name: patient-api
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mediscreen_db?serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/mediscreen?serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=rootuser
-      - SPRING_DATASOURCE_PASSWORD=rootroot
+      - SPRING_DATASOURCE_PASSWORD=rootroot1!
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
     depends_on:
       - mysql
